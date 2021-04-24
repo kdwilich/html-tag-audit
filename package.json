@@ -1,0 +1,28 @@
+{
+  "name": "html-tag-audit",
+  "version": "1.0.0",
+  "description": "html tag auditing tool",
+  "main": "src/index.js",
+  "bin": {
+    "html-tag-audit": "src/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kyle Wilichowski",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^7.2.0",
+    "glob": "^7.1.6",
+    "htmlparser2": "^6.1.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kdwilich/html-tag-audit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kdwilich/html-tag-audit/issues"
+  },
+  "homepage": "https://github.com/kdwilich/html-tag-audit#readme"
+}
