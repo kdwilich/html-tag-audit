@@ -1,6 +1,6 @@
 # html-tag-audit
 
-A tool to audit all html files in a given directory that gets tags and attributes.
+A tool to audit all html files in a given directory and output their tags and attributes.
 
 ## Usage
 
@@ -16,7 +16,7 @@ Or define the directory to start in (`-sd`/`--start-dir`):
 npx html-tag-audit -sd ./dir/to/start
 ```
 
-The default behavior is to ignore default html tags and obvious angular tags as this project was built to audit angular apps. Change the blacklist if an alternative output is desired (`-B`/`--blacklist`):
+The default behavior is to ignore html tags and obvious angular tags as this project was built to audit angular apps. Change the blacklist if an alternative output is desired (`-B`/`--blacklist`):
 
 ```bash
 # accepted values: all, ng, html, none
@@ -24,7 +24,7 @@ The default behavior is to ignore default html tags and obvious angular tags as 
 npx html-tag-audit --blacklist html
 ```
 
-
+View [tag blacklist](https://github.com/kdwilich/html-tag-audit/blob/master/src/blacklists/tag-blacklist.js) and [attributes blacklist](https://github.com/kdwilich/html-tag-audit/blob/master/src/blacklists/attribute-blacklist.js)
 
 ## Available Flags
 
@@ -44,3 +44,42 @@ Flags are also viewable with the `--help` flag
 ## Output
 
 Running the command with no flags will output the audit results to a file named `html-tag-audit.json`. The file type can be changed by passing an accepted type to the `-ft` flag.
+
+### Example
+
+A file exists as `./html-files/test.html` and contains:
+```html
+<app-html-tag (onclick)="clickme()" [disabled]="false"></app-html-tag>
+<app-html-tag styleclass="example-class" randAttribute="someValue"></app-html-tag>
+```
+
+Executing `npx html-tag-audit -sd ./html-files` results in this output:
+
+```json
+# html-tag-audit.json
+{
+  "app-html-tag": {
+    "count": 2,
+    "attributes": [
+      "(onclick)",
+      "[disabled]",
+      "styleclass",
+      "randattribute"
+    ]
+  }
+}
+```
+
+Or to output as a markdown file instead, run `npx html-tag-audit -sd ./html-files -ft md`:
+
+```md
+# html-tag-audit.md
+|Tag|Count|Attributes|
+|---|---:|---|
+|app-html-tag|2|(onclick),[disabled],styleclass,randattribute|
+```
+
+Preview:
+|Tag|Count|Attributes|
+|---|---:|---|
+|app-html-tag|2|(onclick),[disabled],styleclass,randattribute|
