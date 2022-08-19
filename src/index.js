@@ -14,9 +14,9 @@ const {
   logResults,
   logPath,
   logTags,
-  logAttributes
+  logAttributes,
+  sort
 } = require('./options').options;
-
 const tagObj = {};
 
 
@@ -77,7 +77,7 @@ function writeToFile(obj) {
   fs.writeFile(filePath, formatObj(obj), (err) => { if (err) { error(err); return; } });
 }
 
-function sortTagObj(obj) {
+function sortByQty(obj) {
   return Object.fromEntries(
     Object.entries(obj).sort(([t1, a], [t2, b]) => {
       a.attributes.sort();
@@ -87,6 +87,15 @@ function sortTagObj(obj) {
       return b.count - a.count;
     })
   );
+}
+
+function sortByAlpha(obj) {
+  return Object.keys(obj).sort()
+    .reduce((acc, key) => {
+      acc[key] = obj[key];
+
+      return acc;
+    }, {});
 }
 
 const getUnion = (arr1, arr2) => [...new Set([...arr1, ...arr2])];
@@ -105,6 +114,10 @@ function handleTagObj(tag, attrs) {
 
 const parser = new htmlparser2.Parser({
   onopentag(tag, attrs) {
+    if(tag.indexOf('\xa0') > -1) {
+      const brokenTag = tag.split('\xa0');
+      tag = brokenTag[0];
+    }
     if (!tagBlacklist.includes(tag)) {
       if (attrs) {
         attrs = Object.keys(attrs)
@@ -116,7 +129,7 @@ const parser = new htmlparser2.Parser({
   onerror(err) {
     error(err);
   }
-})
+}, {decodeEntities: true})
 
 function readFiles() {
   const paths = glob.sync(startDir + '**/*.html');
@@ -127,7 +140,7 @@ function readFiles() {
     parser.parseComplete(content);
   }
 
-  const sortedObj = sortTagObj(tagObj);
+  const sortedObj = sort === 'tag' ? sortByAlpha(tagObj) : sortByQty(tagObj);
   if (logResults) { console.log(sortedObj); }
   if (fileOutput) { writeToFile(sortedObj); }
   console.log('done');

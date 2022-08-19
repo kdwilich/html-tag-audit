@@ -35,6 +35,7 @@ Flags are also viewable with the `--help` flag
 - `-fd, --file-output-dir <dir>` - change output file directory (default: `./`)
 - `-fn, --filename <filename>` - change output file name (default: `html-tag-audit`)
 - `-ft, --filetype <filetype>` - change output file type [`json`, `md`, `csv`, `txt`] (default: `json`)
+- `-s, --sort <type>` - sort results [`tag`, `count`] (default: `tag`)
 - `-lr, --log-results` - log audit results
 - `-lp, --log-path` - log current path
 - `-B, --blacklist <list>` - change audit blacklist [`all`, `none`, `ng`, `html`] (default: `all`)

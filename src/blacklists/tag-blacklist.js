@@ -4,7 +4,8 @@ const NG_TAGS = [
   'ng-template',
   'ng-container',
   'ng-container',
-  'ng-content'
+  'ng-content',
+  'router-outlet'
 ];
 
 const SVG_TAGS = [
