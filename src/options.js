@@ -6,7 +6,7 @@ program
   .option('-nf, --no-file-output', 'disable file output')
   .option('-fd, --file-output-dir <dir>', 'change output file directory', './')
   .option('-fn, --filename <filename>', 'change output file name', 'html-tag-audit')
-  .option('-ft, --filetype <filetype>', 'change output file type [json, md, csv, txt]', 'json')
+  .option('-ft, --filetype <filetype>', 'change output file type [json, md, csv, txt]', 'csv')
   .option('-s, --sort <type>', 'sort results [tag, count]', 'tag')
   .option('-lr, --log-results', 'log audit results')
   .option('-lp, --log-path', 'log current path')
